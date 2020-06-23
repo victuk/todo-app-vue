@@ -1,0 +1,15 @@
+*{
+    border: 2px solid blue;
+  }
+
+.tasksBoard{
+    display: flex;
+    display: -webkit-flex;
+    width: 100%;
+    flex-direction: row-reverse;
+}
+
+.taskLists{
+    -webkit-flex: 1;
+    flex: 1;
+}
