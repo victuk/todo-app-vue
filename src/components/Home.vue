@@ -25,18 +25,17 @@
 <div>Not completed Tasks</div>
 <div v-for="task in notDone" :key="task.taskID">
 {{ task.taskBody }}<br />
-<button>{{inProgress}}</button>
-<button>{{Completed}}</button>
+<button>inProgress</button>
+<button>Completed</button>
 </div>
 </div>
 
 </div>
 
 <div>
-<input type="text" :value="newTaskBody"><br />
-<input type="text" :value="newTaskBody">
+<input type="text" v-model="newTaskBody"><br />
+<button @click="addTask">Add Task</button>
 </div>
-
 </div>
 </template>
 
@@ -47,16 +46,9 @@ export default {
   name: 'Home',
   data() {
     return {
-      btnValue: ['Completed', 'In Progress', 'Done'],
+      newTaskBody: '',
       tasks: [
-        {
-          taskID: 1,
-          taskBody: 'Wash the roof',
-          taskStatus: 'not-done',
-          Completed: '',
-          inProgress: '',
-          Donee: '',
-        },
+        { taskID: 1, taskBody: 'Wash the roof', taskStatus: 'not-done' },
         { taskID: 2, taskBody: 'Take the generator to the hospital', taskStatus: 'in-progress' },
         { taskID: 3, taskBody: 'Slap my boss', taskStatus: 'done' },
         { taskID: 4, taskBody: 'Wash the roof', taskStatus: 'not-done' },
@@ -80,7 +72,10 @@ export default {
     },
   },
   methods: {
-    //
+    addTask() {
+      // eslint-disable-next-line
+      this.tasks.push({taskID: (this.tasks.length+1), taskBody: this.newTaskBody, taskStatus: 'not-done'});
+    },
   },
 };
 
