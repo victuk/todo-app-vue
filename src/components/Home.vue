@@ -7,7 +7,7 @@
 <div>Completed Tasks</div>
 <div v-for="task in doneTasks" :key="task.taskID">
 {{ task.taskBody }}<br />
-<button>In Progress</button>
+<button @click="doneTasks">In Progress</button>
 <button>Delete</button>
 </div>
 </div>
@@ -16,8 +16,8 @@
 <div>Tasks In Progress</div>
 <div v-for="task in inProgress" :key="task.taskID">
 {{ task.taskBody }}<br />
-<button>Suspend</button>
-<button>Completed</button>
+<button>{{task.taskButton1value}}</button>
+<button>{{task.taskButton2value}}</button>
 </div>
 </div>
 
@@ -25,8 +25,8 @@
 <div>Not completed Tasks</div>
 <div v-for="task in notDone" :key="task.taskID">
 {{ task.taskBody }}<br />
-<button>inProgress</button>
-<button>Completed</button>
+<button @click="inProgressMethod(task.taskID)">{{task.taskButton1value}}</button>
+<button>{{task.taskButton2value}}</button>
 </div>
 </div>
 
@@ -48,15 +48,22 @@ export default {
     return {
       newTaskBody: '',
       tasks: [
-        { taskID: 1, taskBody: 'Wash the roof', taskStatus: 'not-done' },
-        { taskID: 2, taskBody: 'Take the generator to the hospital', taskStatus: 'in-progress' },
-        { taskID: 3, taskBody: 'Slap my boss', taskStatus: 'done' },
-        { taskID: 4, taskBody: 'Wash the roof', taskStatus: 'not-done' },
-        { taskID: 5, taskBody: 'Take the generator to the hospital', taskStatus: 'in-progress' },
-        { taskID: 6, taskBody: 'Slap my boss', taskStatus: 'done' },
-        { taskID: 7, taskBody: 'Wash the roof', taskStatus: 'not-done' },
-        { taskID: 8, taskBody: 'Take the generator to the hospital', taskStatus: 'in-progress' },
-        { taskID: 9, taskBody: 'Slap my boss', taskStatus: 'done' },
+        { taskID: 1,
+          taskBody: 'Wash the roof',
+          taskStatus: 'not-done',
+          taskButton1: '',
+          taskButton2: '',
+          taskButton1value: 'In Progress',
+          taskButton2value: 'Complete',
+        },
+        { taskID: 1,
+          taskBody: 'Wash the roof',
+          taskStatus: 'in-progress',
+          taskButton1: '',
+          taskButton2: '',
+          taskButton1value: 'Suspend',
+          taskButton2value: 'Mark As Completed',
+        },
       ],
     };
   },
@@ -73,8 +80,26 @@ export default {
   },
   methods: {
     addTask() {
+      if (this.newTaskBody === '') {
+        // eslint-disable-next-line
+        alert('Please put something valid');
+      } else {
+        this.tasks.push({
+          taskID: this.tasks.length + 1,
+          taskBody: this.newTaskBody,
+          taskStatus: 'not-done',
+          taskButton1: 'inProgressMethod',
+          taskButton2: 'completed',
+          taskButton1value: 'In Progress',
+          taskButton2value: 'Complete',
+        },
+        this.newTaskBody = '',
+        );
+      }
+    },
+    inProgressMethod(key) {
       // eslint-disable-next-line
-      this.tasks.push({taskID: (this.tasks.length+1), taskBody: this.newTaskBody, taskStatus: 'not-done'});
+      console.log(key);
     },
   },
 };
