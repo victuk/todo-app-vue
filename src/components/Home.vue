@@ -7,8 +7,8 @@
 <div>Completed Tasks</div>
 <div v-for="task in doneTasks" :key="task.taskID">
 {{ task.taskBody }}<br />
-<button @click="doneTasks">In Progress</button>
-<button>Delete</button>
+<button @click.prevent="notComplete(task.taskID)">{{task.taskButton1value}}</button>
+<button @click.prevent="deleteTask(task.taskID)">{{task.taskButton2value}}</button>
 </div>
 </div>
 
@@ -16,8 +16,8 @@
 <div>Tasks In Progress</div>
 <div v-for="task in inProgress" :key="task.taskID">
 {{ task.taskBody }}<br />
-<button>{{task.taskButton1value}}</button>
-<button>{{task.taskButton2value}}</button>
+<button @click.prevent="inProgressMethod(task.taskID)">{{task.taskButton1value}}</button>
+<button @click.prevent="notComplete(task.taskID)">{{task.taskButton2value}}</button>
 </div>
 </div>
 
@@ -25,8 +25,8 @@
 <div>Not completed Tasks</div>
 <div v-for="task in notDone" :key="task.taskID">
 {{ task.taskBody }}<br />
-<button @click="inProgressMethod(task.taskID)">{{task.taskButton1value}}</button>
-<button>{{task.taskButton2value}}</button>
+<button @click.prevent="inProgressMethod(task.taskID)">{{task.taskButton1value}}</button>
+<button @click.prevent="notComplete(task.taskID)">{{task.taskButton2value}}</button>
 </div>
 </div>
 
@@ -34,7 +34,7 @@
 
 <div>
 <input type="text" v-model="newTaskBody"><br />
-<button @click="addTask">Add Task</button>
+<button @click.prevent="addTask">Add Task</button>
 </div>
 </div>
 </template>
@@ -47,24 +47,7 @@ export default {
   data() {
     return {
       newTaskBody: '',
-      tasks: [
-        { taskID: 1,
-          taskBody: 'Wash the roof',
-          taskStatus: 'not-done',
-          taskButton1: '',
-          taskButton2: '',
-          taskButton1value: 'In Progress',
-          taskButton2value: 'Complete',
-        },
-        { taskID: 1,
-          taskBody: 'Wash the roof',
-          taskStatus: 'in-progress',
-          taskButton1: '',
-          taskButton2: '',
-          taskButton1value: 'Suspend',
-          taskButton2value: 'Mark As Completed',
-        },
-      ],
+      tasks: [],
     };
   },
   computed: {
@@ -85,11 +68,9 @@ export default {
         alert('Please put something valid');
       } else {
         this.tasks.push({
-          taskID: this.tasks.length + 1,
+          taskID: this.tasks.length,
           taskBody: this.newTaskBody,
           taskStatus: 'not-done',
-          taskButton1: 'inProgressMethod',
-          taskButton2: 'completed',
           taskButton1value: 'In Progress',
           taskButton2value: 'Complete',
         },
@@ -99,7 +80,38 @@ export default {
     },
     inProgressMethod(key) {
       // eslint-disable-next-line
+      console.log(this.tasks[key]);
+      // eslint-disable-next-line
       console.log(key);
+      if (this.tasks[key].taskStatus === 'not-done') {
+        this.tasks[key].taskStatus = 'in-progress';
+        this.tasks[key].taskButton1value = 'Move to Not Completed';
+        this.tasks[key].taskButton2value = 'Mark As Completed';
+      } else if (this.tasks[key].taskStatus === 'in-progress') {
+        this.tasks[key].taskStatus = 'not-done';
+        this.tasks[key].taskButton1value = 'In Progress';
+        this.tasks[key].taskButton2value = 'Complete';
+      }
+    },
+    notComplete(key) {
+      // eslint-disable-next-line
+      console.log(this.tasks[key]);
+      // eslint-disable-next-line
+      console.log(key);
+      if (this.tasks[key].taskStatus === 'not-done' || this.tasks[key].taskStatus === 'in-progress') {
+        this.tasks[key].taskStatus = 'done';
+        this.tasks[key].taskButton1value = 'Move to Progress Tab';
+        this.tasks[key].taskButton2value = 'Delete Task';
+      } else if (this.tasks[key].taskStatus === 'done') {
+        this.tasks[key].taskStatus = 'in-progress';
+        this.tasks[key].taskButton1value = 'Move to Not Completed';
+        this.tasks[key].taskButton2value = 'Mark As Completed';
+      }
+    },
+    deleteTask() {
+      // eslint-disable-next-line
+      console.log(this.tasks.taskBody);
+      // this.tasks.pop(this.tasks.taskBody);
     },
   },
 };
