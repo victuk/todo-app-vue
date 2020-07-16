@@ -108,10 +108,14 @@ export default {
         this.tasks[key].taskButton2value = 'Mark As Completed';
       }
     },
-    deleteTask() {
-      // eslint-disable-next-line
-      console.log(this.tasks.taskBody);
-      // this.tasks.pop(this.tasks.taskBody);
+    deleteTask(key) {
+      this.tasks.forEach((task) => {
+        // eslint-disable-next-line
+        console.log(key);
+        // eslint-disable-next-line
+        console.log(task);
+        // this.tasks.pop(this.tasks.taskBody);
+      });
     },
   },
 };
