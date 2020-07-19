@@ -5,28 +5,34 @@
 
 <div class="taskLists">
 <div>Completed Tasks</div>
-<div v-for="task in doneTasks" :key="task.taskID">
+<div v-for="task in doneTasks" :key="task.taskID" class={taskstyle}>
+<div :class="task.taskstyle">
 {{ task.taskBody }}<br />
 <button @click.prevent="notComplete(task.taskID)">{{task.taskButton1value}}</button>
-<button @click.prevent="deleteTask(task.taskID)">{{task.taskButton2value}}</button>
+<button @click="deleteTask(task.taskID)">{{task.taskButton2value}}</button>
+</div>
 </div>
 </div>
 
 <div class="taskLists">
 <div>Tasks In Progress</div>
-<div v-for="task in inProgress" :key="task.taskID">
+<div v-for="task in inProgress" :key="task.taskID" class={taskstyle}>
+<div :class="task.taskstyle">
 {{ task.taskBody }}<br />
 <button @click.prevent="inProgressMethod(task.taskID)">{{task.taskButton1value}}</button>
 <button @click.prevent="notComplete(task.taskID)">{{task.taskButton2value}}</button>
+</div>
 </div>
 </div>
 
 <div class="taskLists">
 <div>Not completed Tasks</div>
 <div v-for="task in notDone" :key="task.taskID">
+<div :class="task.taskstyle">
 {{ task.taskBody }}<br />
 <button @click.prevent="inProgressMethod(task.taskID)">{{task.taskButton1value}}</button>
 <button @click.prevent="notComplete(task.taskID)">{{task.taskButton2value}}</button>
+</div>
 </div>
 </div>
 
@@ -73,49 +79,47 @@ export default {
           taskStatus: 'not-done',
           taskButton1value: 'In Progress',
           taskButton2value: 'Complete',
+          taskstyle: 'not-done-style',
         },
-        this.newTaskBody = '',
         );
+        this.newTaskBody = '';
       }
     },
     inProgressMethod(key) {
-      // eslint-disable-next-line
-      console.log(this.tasks[key]);
-      // eslint-disable-next-line
-      console.log(key);
       if (this.tasks[key].taskStatus === 'not-done') {
         this.tasks[key].taskStatus = 'in-progress';
         this.tasks[key].taskButton1value = 'Move to Not Completed';
         this.tasks[key].taskButton2value = 'Mark As Completed';
+        this.tasks[key].taskstyle = 'in-progress-style';
       } else if (this.tasks[key].taskStatus === 'in-progress') {
         this.tasks[key].taskStatus = 'not-done';
         this.tasks[key].taskButton1value = 'In Progress';
         this.tasks[key].taskButton2value = 'Complete';
+        this.tasks[key].taskstyle = 'not-done-style';
       }
     },
     notComplete(key) {
-      // eslint-disable-next-line
-      console.log(this.tasks[key]);
-      // eslint-disable-next-line
-      console.log(key);
       if (this.tasks[key].taskStatus === 'not-done' || this.tasks[key].taskStatus === 'in-progress') {
         this.tasks[key].taskStatus = 'done';
         this.tasks[key].taskButton1value = 'Move to Progress Tab';
         this.tasks[key].taskButton2value = 'Delete Task';
+        this.tasks[key].taskstyle = 'completed-style';
       } else if (this.tasks[key].taskStatus === 'done') {
         this.tasks[key].taskStatus = 'in-progress';
         this.tasks[key].taskButton1value = 'Move to Not Completed';
         this.tasks[key].taskButton2value = 'Mark As Completed';
+        this.tasks[key].taskstyle = 'in-progress-style';
       }
     },
     deleteTask(key) {
+      /* eslint-disable */
       this.tasks.forEach((task) => {
-        // eslint-disable-next-line
-        console.log(key);
-        // eslint-disable-next-line
-        console.log(task);
-        // this.tasks.pop(this.tasks.taskBody);
+        if(task.taskID === key) {
+          // console.log(task);
+          this.tasks.splice(task, 1);
+        }
       });
+
     },
   },
 };

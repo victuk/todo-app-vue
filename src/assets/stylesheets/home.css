@@ -1,6 +1,23 @@
-*{
-    border: 2px solid blue;
-  }
+.not-done-style{
+    background-color: rebeccapurple;
+}
+
+.in-progress-style{
+    background-color: blueviolet;
+}
+
+button{
+    border: none;
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+    padding: 5px;
+    margin: 2px;
+}
+
+.completed-style{
+    background-color: green;
+}
 
 .tasksBoard{
     display: flex;
