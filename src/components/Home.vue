@@ -1,10 +1,16 @@
 <template>
 <div>
-<div>Welcome to my Task Tracker App</div>
-<div class="tasksBoard">
+<div class="taskTracker">Welcome to my Task Tracker App</div>
+
+<div class="container">
+<input type="text" v-model.trim="newTaskBody" class="margin-right: 2px;">
+<button @click.prevent="addTask">Add Task</button>
+</div>
+
+<div class="tasksBoard container">
 
 <div class="taskLists">
-<div>Completed Tasks</div>
+<div class="">Completed Tasks</div>
 <div v-for="task in doneTasks" :key="task.taskID" class={taskstyle}>
 <div :class="task.taskstyle">
 {{ task.taskBody }}<br />
@@ -38,10 +44,7 @@
 
 </div>
 
-<div>
-<input type="text" v-model="newTaskBody"><br />
-<button @click.prevent="addTask">Add Task</button>
-</div>
+
 </div>
 </template>
 

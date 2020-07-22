@@ -1,22 +1,37 @@
 .not-done-style{
-    background-color: rebeccapurple;
+    border: 2px solid blue;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: white;
+    margin-top: 10px;
+    display: inline-block;
 }
 
 .in-progress-style{
-    background-color: blueviolet;
+    border: 2px solid green;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: white;
+    margin-top: 10px;
+    display: inline-block;
 }
 
 button{
-    border: none;
+
     text-decoration: none;
-    background-color: blue;
+    background-color: deepskyblue;
     color: white;
     padding: 5px;
     margin: 2px;
+    border: 2px none;
 }
 
 .completed-style{
-    background-color: green;
+    text-decoration-line: line-through;
+    margin-top: 10px;
+    border: 2px solid green;
+    border-radius: 10px;
+    display: inline-block;
 }
 
 .tasksBoard{
@@ -29,4 +44,12 @@ button{
 .taskLists{
     -webkit-flex: 1;
     flex: 1;
+}
+
+.taskTracker{
+    text-align: center;
+    font-size: x-large;
+    padding: 5px;
+    color: white;
+    background-color: deepskyblue;
 }
