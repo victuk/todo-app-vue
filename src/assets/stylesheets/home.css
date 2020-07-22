@@ -27,7 +27,6 @@ button{
 }
 
 .completed-style{
-    text-decoration-line: line-through;
     margin-top: 10px;
     border: 2px solid green;
     border-radius: 10px;

@@ -1,6 +1,6 @@
 <template>
 <div>
-<div class="taskTracker">Welcome to my Task Tracker App</div>
+<div class="taskTracker">Welcome to your Task Tracker App</div>
 
 <div class="container">
 <input type="text" v-model.trim="newTaskBody" class="margin-right: 2px;">
@@ -13,7 +13,7 @@
 <div class="">Completed Tasks</div>
 <div v-for="task in doneTasks" :key="task.taskID" class={taskstyle}>
 <div :class="task.taskstyle">
-{{ task.taskBody }}<br />
+<div>{{ task.taskBody }}</div><br />
 <button @click.prevent="notComplete(task.taskID)">{{task.taskButton1value}}</button>
 <button @click="deleteTask(task.taskID)">{{task.taskButton2value}}</button>
 </div>
@@ -44,7 +44,6 @@
 
 </div>
 
-
 </div>
 </template>
 
@@ -57,6 +56,7 @@ export default {
     return {
       newTaskBody: '',
       tasks: [],
+      dstatus: '',
     };
   },
   computed: {
@@ -118,11 +118,12 @@ export default {
       /* eslint-disable */
       this.tasks.forEach((task) => {
         if(task.taskID === key) {
-          // console.log(task);
-          this.tasks.splice(task, 1);
+          console.log(task);
+          console.log(task.taskID);
+          console.log(key);
+          // this.tasks.splice(task, 1);
         }
       });
-
     },
   },
 };
